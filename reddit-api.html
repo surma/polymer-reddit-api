@@ -1,0 +1,74 @@
+<!--
+ Copyright 2015 Google Inc. All Rights Reserved.
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+--> 
+<link rel="import" href="../iron-jsonp-library/iron-jsonp-library.html">
+<dom-module id="reddit-api">
+  <template>
+    <iron-jsonp-library
+      notify-event="data"
+      on-data="_newData"
+      library-url="[[_requestUrl]]"
+      ></iron-jsonp-library>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'reddit-api',
+      properties: {
+        subreddit: {
+          type: String,
+          reflectToAttribute: true,
+          notify: true
+        },
+        sorting: {
+          type: String,
+          reflectToAttribute: true,
+          value: 'hot',
+          notify: true
+        },
+        posts: {
+          type: Array,
+          readOnly: true,
+          value: function() {
+            return [];
+          },
+          notify: true
+        },
+        baseUrl: {
+          type: String,
+          reflectToAttribute: true,
+          value: 'https://api.reddit.com'
+        },
+        _requestUrl: {
+          type: String,
+          readOnly: true,
+          computed: '_computeUrl(baseUrl, subreddit, sorting)',
+          notify: true
+        }
+      },
+      _computeUrl: function(baseUrl, subreddit, sorting) {
+        return baseUrl + subreddit + '/' + sorting + '?jsonp=%%callback%%';
+      },
+      _newData: function(ev) {
+        this._setPosts(ev.detail[0].data.children.map(function(post) {
+          return {
+            title: post.data.title,
+            link: post.data.url
+          };
+        }));
+      }
+    });
+  </script>
+</dom-module>

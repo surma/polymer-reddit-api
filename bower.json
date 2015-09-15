@@ -1,0 +1,26 @@
+{
+  "name": "reddit-api",
+  "version": "0.1.0",
+  "authors": [
+    "Surma <surma@google.com>"
+  ],
+  "license": "Apache-2",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "iron-jsonp-library": "PolymerElements/iron-jsonp-library#~1.0.3",
+    "polymer": "Polymer/polymer#~1.1.2"
+  },
+  "devDependencies": {
+    "paper-radio-button": "PolymerElements/paper-radio-button#~1.0.7",
+    "paper-radio-group": "PolymerElements/paper-radio-group#~1.0.4",
+    "paper-button": "PolymerElements/paper-button#~1.0.4",
+    "paper-input": "PolymerElements/paper-input#~1.0.13",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#~0.7.12"
+  }
+}
